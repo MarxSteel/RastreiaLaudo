@@ -8,6 +8,11 @@ $PDO = db_connect();
   $NomeUserLogado = $row['Nome'];
   $foto = $row['Foto'];
 
+
+  $ChamaLaudo = "SELECT * FROM laudo";
+  $L1 = $PDO->prepare($ChamaLaudo);
+  $L1->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -116,13 +121,31 @@ $PDO = db_connect();
         </tr>
        </thead>
        <tbody>
-        <tr>
-         <td>1</td>
-         <td>10/10/2010 - 11:44:11</td>
-         <td>NOME DO PRODUTO XYZ CADASTRADO PELO ALMOXARIFADO</td>
-         <td><button class="btn btn-success btn-block disabled">LIBERADO</button> </td>
-         <td><button class="btn btn-default"><i class="fa fa-search"></i></button> </td>
-        </tr>
+        <?php 
+          while ($L = $L1->fetch(PDO::FETCH_ASSOC)): 
+           echo '<tr>';
+            echo '<td>' . $L['id'] . '</td>';
+            echo '<td>' . $L['dataCadastro'] . '</td>';
+            echo '<td>' . $L['Item'] . '</td>';
+            echo '<td>';
+            $Status = $L['Status'];
+            if ($Status === "1") {
+             echo '<button class="btn bg-orange btn-block btn-xs disabled">ENVIADO</button>';
+            }
+            elseif ($Status === "2") {
+             echo '<button class="btn btn-info btn-block btn-xs disabled">RECEBIDO</button>';
+            }
+            elseif ($Status === "3") {
+             echo '<button class="btn btn-success btn-block btn-xs disabled">REVISADO</button>';
+            }
+            echo '</td>';
+            echo '<td>' . $L['id'] . '</td>';
+            echo '<td><a class="btn btn-success btn-block btn-xs" href="';
+            echo "javascript:abrir('vProduto.php?ID=" . $L['id'] . "');";
+            echo '"><i class="fa fa-search"> </i></a></td>';
+           echo '</tr>';
+           endwhile;
+         ?>
        </tbody>
       </table>
      </div><!-- box.body -->
