@@ -1,6 +1,12 @@
 <?php
-include_once 'teste.php';
-
+require("restritos.php"); 
+require_once 'init.php';
+$PDO = db_connect();
+ $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
+ $query->execute();
+  $row = $query->fetch();
+  $NomeUserLogado = $row['Nome'];
+  $foto = $row['Foto'];
 ?>
 
 <!DOCTYPE html>
@@ -78,9 +84,9 @@ include_once 'teste.php';
   <div class="row">
   <div class="col-md-4">
    <div class="info-box">
-    <a href="almox/laudos.php" >
+    <a href="almox/dashboard.php" >
      <span class="info-box-icon btn-danger">
-      <i class="fa fa-paper-o"></i></span>
+      <i class="fa fa-clipboard"></i></span>
     </a>
     <div class="info-box-content"><h4>Laudos de teste</h4></div>
    </div>
