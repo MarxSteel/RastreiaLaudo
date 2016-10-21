@@ -113,11 +113,12 @@ $PDO = db_connect();
       <table id="laudos" class="table table-bordered table-striped">
        <thead>
         <tr>
-         <th>#</th>
-         <th>Data</th>
+         <th width="10" >#</th>
+         <th width="120" >Data</th>
          <th>Item</th>
-         <th>Status</th>
-         <th></th>
+         <th width="35" >Status</th>
+         <th width="10" ></th>
+         <th width="10" ></th>
         </tr>
        </thead>
        <tbody>
@@ -127,20 +128,31 @@ $PDO = db_connect();
             echo '<td>' . $L['id'] . '</td>';
             echo '<td>' . $L['dataCadastro'] . '</td>';
             echo '<td>' . $L['Item'] . '</td>';
-            echo '<td>';
             $Status = $L['Status'];
             if ($Status === "1") {
+             echo '<td>';
              echo '<button class="btn bg-orange btn-block btn-xs disabled">ENVIADO</button>';
+             echo '</td>';
+             echo '<td><a class="btn btn-danger btn-block btn-xs" href="';
+              echo "javascript:abrir('Recebe.php?ID=" . $L['id'] . "');";
+              echo '"><i class="fa fa-plus"> RECEBER</i></a></td>';
             }
             elseif ($Status === "2") {
+             echo '<td>';
              echo '<button class="btn btn-info btn-block btn-xs disabled">RECEBIDO</button>';
+             echo '</td>';
+             echo '<td><a class="btn bg-navy btn-block btn-xs" href="';
+              echo "javascript:abrir('Preencher.php?ID=" . $L['id'] . "');";
+              echo '"><i class="fa fa-plus"> LAUDO</i></a></td>';
+
             }
             elseif ($Status === "3") {
-             echo '<button class="btn btn-success btn-block btn-xs disabled">REVISADO</button>';
-            }
+            echo '<td>';
+            echo '<button class="btn btn-success btn-block btn-xs disabled">REVISADO</button>';
             echo '</td>';
-            echo '<td>' . $L['id'] . '</td>';
-            echo '<td><a class="btn btn-success btn-block btn-xs" href="';
+            echo '<td></td>';
+            }
+            echo '<td><a class="btn btn-default btn-block btn-xs" href="';
             echo "javascript:abrir('vProduto.php?ID=" . $L['id'] . "');";
             echo '"><i class="fa fa-search"> </i></a></td>';
            echo '</tr>';
@@ -157,7 +169,7 @@ $PDO = db_connect();
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
-<?php include_once 'footer.php'; ?>
+<?php include_once '../footer.php'; ?>
 
 </div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
