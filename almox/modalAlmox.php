@@ -18,7 +18,7 @@
       <input type="text" name="qntTeste" required="required" class="form-control">
      </div>
      <div class="col-xs-12">Descrição
-      <input type="text" name="obs" required="required" class="form-control">
+      <input type="text" name="item" required="required" class="form-control">
      </div>
      <div class="col-xs-12">Observações
       <textarea name="obs" cols="45" rows="3" class="form-control" id="obs"></textarea><hr>
@@ -31,23 +31,33 @@
  	<?php
   	 if(@$_POST["nvl"])
   	 {
-    $Cod = $_POST['codigo'];
-    $QtTotal = $_POST['qntTotal'];
-    $QtTeste = $_POST['qntTeste'];
-    $DataCadastro = date('d/m/Y - H:i:s');
-    $Obs = str_replace("\r\n", "<br/>", strip_tags($_POST["obs"]));
-     $InsLaudo = $PDO->query("INSERT INTO laudo (codigo, qtTeste, qtTotal, dataCadastro, usrCad, Obs) VALUES ('$Cod', '$QtTeste', '$QtTotal', '$DataCadastro', '$NomeUserLogado', 'Obs')");
-     if ($InsLaudo)
-     {
-      echo '<script type="text/JavaScript">alert("Arvore Adicionada");
+      $Cod = $_POST['codigo'];
+      $QtTotal = $_POST['qntTotal'];
+      $QtTeste = $_POST['qntTeste'];
+      $Item = $_POST['item'];
+      $DataCadastro = date('d/m/Y - H:i:s');
+      $Obs = str_replace("\r\n", "<br/>", strip_tags($_POST["obs"]));
+       $InsLaudo = $PDO->query("INSERT INTO laudo (codigo, Item, qtTeste, qtTotal, dataCadastro, usrCad, Obs, Status) VALUES ('$Cod', '$Item', '$QtTeste', '$QtTotal', '$DataCadastro', '$NomeUserLogado', 'Obs', '1')");
+       if ($InsLaudo)
+       {
+        $Ev = "Adicionado novo pedido de teste";
+        $InsLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, EventoID, DataCadastro) VALUES ('$Ev', '$NomeUserLogado', '1', '$DataCadastro')");	
+        if ($InsLog) 
+        {
+         echo '<script type="text/JavaScript">alert("Cadastrado com Sucesso");
               location.href="dashboard.php"</script>';
-     }
-     else
-     {
-      echo '<script type="text/javascript">alert("Não foi possível. Erro: 0x03");</script>';
-     }
-} 
-?>s
+	    }
+        else
+        {
+         echo '<script type="text/javascript">alert("Erro ao salvar Log");</script>';
+        }
+       }
+       else
+       {
+       echo '<script type="text/javascript">alert("Erro ao Adicionar");</script>';
+       }
+	  } 
+	?>
    </div>
    <div class="modal-footer"></div>
   </div>
