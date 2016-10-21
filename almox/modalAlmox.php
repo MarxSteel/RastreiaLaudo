@@ -39,12 +39,21 @@
      $InsLaudo = $PDO->query("INSERT INTO laudo (codigo, qtTeste, qtTotal, dataCadastro, usrCad, Obs) VALUES ('$Cod', '$QtTeste', '$QtTotal', '$DataCadastro', '$NomeUserLogado', 'Obs')");
      if ($InsLaudo)
      {
-      echo '<script type="text/JavaScript">alert("Arvore Adicionada");
+      $Ev = "Adicionado novo pedido de teste";
+      $InsLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, EventoID, DataCadastro) VALUES ('$Ev', '$NomeUserLogado', '1', '$DataCadastro')");	
+      if ($InsLog) 
+      {
+       echo '<script type="text/JavaScript">alert("Cadastrado com Sucesso");
               location.href="dashboard.php"</script>';
+	  }
+      else
+      {
+        echo '<script type="text/javascript">alert("Erro ao salvar Log");</script>';
+      }
      }
      else
      {
-      echo '<script type="text/javascript">alert("Não foi possível. Erro: 0x03");</script>';
+      echo '<script type="text/javascript">alert("Erro ao Adicionar");</script>';
      }
 } 
 ?>s
