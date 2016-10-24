@@ -11,7 +11,6 @@ $PDO = db_connect();
   $L1 = $PDO->prepare($ChamaLaudo);
   $L1->execute();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
