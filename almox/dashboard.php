@@ -2,11 +2,9 @@
 require("../restritos.php"); 
 require_once '../init.php';
 $cLaudo = "active";
-
 $PDO = db_connect();
 require_once '../QueryUser.php';
 require_once '../queryDashboard.php';
-
   $ChamaLaudo = "SELECT * FROM laudo ORDER BY id DESC";
   $L1 = $PDO->prepare($ChamaLaudo);
   $L1->execute();
@@ -74,6 +72,7 @@ require_once '../queryDashboard.php';
  </section>
  <section class="content">
   <div class="row">
+  <?php if ($Plaudo === "9") { if ($Cclaudo === "9") { ?>
    <div class="col-md-4 col-xs-12">
     <div class="info-box">
      <a data-toggle="modal" data-target="#novoLaudo"">
@@ -84,6 +83,7 @@ require_once '../queryDashboard.php';
      <div class="info-box-content"><br /><h4>Cadastrar Nova nota</h4></div>
     </div>
    </div>
+   <?php } else{ } ?>
    <div class="col-xs-12">
     <div class="box">
      <div class="box-header">
@@ -154,7 +154,20 @@ require_once '../queryDashboard.php';
      </div><!-- box.body -->
     </div><!-- box -->
    </div>
-   <?php include_once "modalAlmox.php"; ?>
+   <?php include_once "modalAlmox.php";  } else{ ?>
+   <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red">
+      <i class="fa fa-exclamation-triangle"></i>
+      </span>
+      <div class="info-box-content">
+       <h4><strong><i>Atenção!</i></strong></h4>
+       <h4>Você não possui privilégios suficientes para abrir esta página. Contate o Administrador!</h4>
+      </div>
+     </div>
+    </div>
+    <?php } ?>
+  
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->

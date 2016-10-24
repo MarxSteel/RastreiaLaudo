@@ -3,7 +3,6 @@
  require_once '../init.php';
  $PDO = db_connect();
 require_once '../QueryUser.php';
-
    $id = $_GET['ID'];
    $dFor = $PDO->prepare("SELECT * FROM laudo WHERE id='$id'");
    $dFor->execute();
