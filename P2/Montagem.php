@@ -213,8 +213,6 @@ require_once '../queryDashboard.php';
      <div class="info-box-content"><br /><h4>Acessorios</h4></div>
     </div>
    </div>
-
-
   <?php  
    include 'modal/Prisma.php';
    include 'modal/PrismaSF.php';
