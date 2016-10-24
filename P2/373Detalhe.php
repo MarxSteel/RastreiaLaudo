@@ -121,8 +121,6 @@ include_once '373Valida.php';
       </div>
       </div>
      </div>
-
-
     </section>
   </div>
  </div>
