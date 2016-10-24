@@ -1,6 +1,8 @@
 <?php
 require("restritos.php"); 
 require_once 'init.php';
+$cHome = "active";
+
 $PDO = db_connect();
 require_once 'QueryUser.php';
 require_once 'queryDashboard.php';
@@ -226,7 +228,7 @@ require_once 'queryDashboard.php';
     <div class="info-box">
      <a href="Cat/dashboard.php" >
       <span class="info-box-icon btn-danger">
-       <i class="fa fa-clipboard"></i></span>
+       <i class="fa fa-map-signs"></i></span>
      </a>
      <div class="info-box-content"><h4>Catracas</h4></div>
     </div>
@@ -241,18 +243,6 @@ require_once 'queryDashboard.php';
        </span>
       </a>
       <div class="info-box-content"><h4>USUÁRIOS</h4></div>
-     </div>                  
-    </div>
-   </div>
-   <div class="col-md-3">
-    <div class="box box-widget widget-user">
-     <div class="info-box">
-      <a href="#" >
-       <span class="info-box-icon bg-black">
-        <i class="fa fa-newspaper-o"></i>
-       </span>
-      </a>
-      <div class="info-box-content"><h4>RELATÓRIOS</h4></div>
      </div>                  
     </div>
    </div>
