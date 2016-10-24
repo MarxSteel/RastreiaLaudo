@@ -2,13 +2,9 @@
 require("restritos.php"); 
 require_once 'init.php';
 $PDO = db_connect();
- $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
- $query->execute();
-  $row = $query->fetch();
-  $NomeUserLogado = $row['Nome'];
-  $foto = $row['Foto'];
+require_once 'QueryUser.php';
+require_once 'queryDashboard.php';
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,12 +34,10 @@ $PDO = db_connect();
     <ul class="nav navbar-nav">
      <li class="dropdown user user-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-       <img src="dist/img/user/<?php echo $foto; ?>" class="user-image">
        <span class="hidden-xs"><?php echo $NomeUserLogado; ?></span>
       </a>
       <ul class="dropdown-menu">
        <li class="user-header">
-        <img src="dist/img/user/<?php echo $foto; ?>" class="img-circle">
         <p><?php echo $NomeUserLogado; ?></p>
        </li>
        <li class="user-footer">
@@ -65,14 +59,6 @@ $PDO = db_connect();
   </header>
   <aside class="main-sidebar">
    <section class="sidebar">
-    <div class="user-panel">
-     <div class="pull-left image">
-      <img src="dist/img/user/<?php echo $foto; ?>" class="img-circle">
-     </div>
-     <div class="pull-left info">
-      <p><?php echo $NomeUserLogado; ?></p>
-     </div>
-    </div>
     <?php include_once 'menuLateral.php'; ?>
     </section>
   </aside>
@@ -82,7 +68,196 @@ $PDO = db_connect();
  </section>
  <section class="content">
   <div class="row">
-  <div class="col-md-4">
+  <?php if ($PermMontagem == "9") { ?> 
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/Montagem.php" >
+       <span class="info-box-icon btn-primary"><i class="fa fa-wrench"></i></span>
+      </a>
+      <div class="info-box-content"><h4>NOVO EQUIPAMENTO</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Meta Prevista <span class="pull-right badge bg-blue"><?php echo $MetaPrevista; ?></span></a>
+       </li>
+       <li>
+        <a>Meta Alacançada <span class="pull-right badge bg-red"><?php echo $MetaRealizada; ?></span></a>
+       </li>
+       <?php 
+        echo '<li><div class="progress progress active">';
+        echo '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:' . porcentagem_nnx ( $MetaRealizada, $MetaPrevista) . '%">';
+       ?>  
+      </ul>               
+     </div><!-- box-footer no-padding -->
+    </div><!-- box box-widget widget-user -->
+   </div><!-- col-md-3 col-sm-6 col-xs-12 -->
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/Pendentes.php" >
+       <span class="info-box-icon btn-danger">
+        <i class="fa fa-exclamation-triangle"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>EQUIPAMENTOS PENDENTES</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Pendentes Acesso<span class="pull-right badge bg-green">
+         <?php echo $QntPendentesAcesso; ?></span></a>
+       </li>
+       <li>
+        <a>Pendentes 1510<span class="pull-right badge bg-red">
+         <?php echo $QntPendentes1510; ?></span></a>
+       </li>
+       <li>
+        <a>Pendentes 373 <span class="pull-right badge bg-blue">
+         <?php echo $QntPendentes373; ?></span></a>
+       </li>
+      </ul>
+     </div>                   
+    </div>
+   </div>
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/MeusEquips.php" >
+       <span class="info-box-icon bg-olive">
+        <i class="fa fa-child"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>MEUS EQUIPAMENTOS</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Acesso<span class="pull-right badge bg-green">
+         <?php echo $QntMontadosAcesso; ?></span></a>
+       </li>
+       <li>
+        <a>Ponto 1510/INMETRO<span class="pull-right badge bg-red">
+        <?php echo $QntMontados1510; ?></span></a>
+       </li>
+       <li>
+        <a>Ponto 373 <span class="pull-right badge bg-blue">
+         <?php echo $QntMontados373; ?>
+        </span></a>
+       </li>
+      </ul>
+     </div>                   
+    </div>
+   </div>
+   <?php } else{ } if ($PermReteste === "9") { ?>
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/Reteste.php" >
+       <span class="info-box-icon btn-warning">
+        <i class="fa fa-refresh"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>CONTROLE DE RETESTE</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Pendentes Acesso<span class="pull-right badge bg-green">
+         <?php echo $QntRetesteAcesso; ?></span></a>
+       </li>
+       <li>
+        <a>Pendentes 1510<span class="pull-right badge bg-red">
+        <?php echo $QntReteste1510; ?></span></a>
+       </li>
+       <li>
+        <a>Pendentes 373 <span class="pull-right badge bg-blue">
+        <?php echo $QntReteste373; ?>
+        </span></a>
+       </li>
+      </ul>
+     </div>                   
+    </div>
+   </div>
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/Quantgeral.php" >
+       <span class="info-box-icon bg-navy">
+        <i class="fa fa-server"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>QUANTIDADE GERAL</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Acesso<span class="pull-right badge bg-green">
+         <?php echo $QntGeralAcesso; ?></span></a>
+       </li>
+        <li>
+        <a>Ponto 1510/INMETRO<span class="pull-right badge bg-red">
+        <?php echo $QntGeral1510; ?></span></a>
+       </li>
+        <li>
+        <a>Ponto 373 <span class="pull-right badge bg-blue">
+         <?php echo $QntGeral373; ?>
+        </span></a>
+        </li>
+      </ul>
+     </div>                   
+    </div>
+   </div>
+   <div class="col-md-3">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="Imprime/dashboard.php" >
+       <span class="info-box-icon bg-olive">
+        <i class="fa fa-print"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>IMPRIMIR</h4></div>
+     </div>                  
+    </div>
+   </div>
+   <?php } else{ } if ($Catraca === "9") { ?>
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+     <a href="Cat/dashboard.php" >
+      <span class="info-box-icon btn-danger">
+       <i class="fa fa-clipboard"></i></span>
+     </a>
+     <div class="info-box-content"><h4>Catracas</h4></div>
+    </div>
+   </div><!-- CLASS ROW -->
+   <?php } else{ } if ($PermAdm === "9") { ?>
+   <div class="col-md-3">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="adm/usuarios.php" >
+       <span class="info-box-icon bg-purple">
+        <i class="fa fa-users"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>USUÁRIOS</h4></div>
+     </div>                  
+    </div>
+   </div>
+   <div class="col-md-3">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="#" >
+       <span class="info-box-icon bg-black">
+        <i class="fa fa-newspaper-o"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>RELATÓRIOS</h4></div>
+     </div>                  
+    </div>
+   </div>
+   <?php } else{ } if ($Plaudo === "9") { ?>
+   <div class="col-md-3 col-sm-6 col-xs-12">
    <div class="info-box">
     <a href="almox/dashboard.php" >
      <span class="info-box-icon btn-danger">
@@ -90,9 +265,8 @@ $PDO = db_connect();
     </a>
     <div class="info-box-content"><h4>Laudos de teste</h4></div>
    </div>
-
-
   </div><!-- CLASS ROW -->
+   <?php } else{ } ?>
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once 'footer.php'; ?>
