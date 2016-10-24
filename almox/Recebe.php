@@ -109,28 +109,22 @@ word-wrap: break-word;
        <?php
         if(@$_POST["recebeItem"])
         {
-         $DataRecebe = date('d/m/Y H:i:s');
+         $DataRecebe = date('d/m/Y - H:i:s');
          $Recebe = $PDO->query("UPDATE laudo SET DataRecebe='$DataRecebe', usrRec='$NomeUserLogado', Status='2' WHERE id='$id'");
-
-        
-         if ($Recebe) 
-         {
-            $NovoEvento = "Item Recebido";
-            $NovoLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, DataCadastrado, EventoID) VALUES ('$NovoEvento', '$NomeUserLogado', '$DataRecebe', '2')");
-          if ($NovoLog)
+         if ($Recebe)
           {
-          echo '<script type="text/JavaScript">alert("NÃO FOI POSSÍVEL RECEBER!");</script>';
-          }
-         else
-         {
-          echo '<script type="text/JavaScript">alert("RECEBIDO!");</script>';
-          echo '<script type="text/JavaScript">window.close();</script>';
-         }
-
+          $Ev = "Recebido Teste";
+        $InsLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, EventoID, DataCadastro) VALUES ('$Ev', '$NomeUserLogado', '2', '$DataRecebe')"); 
+        if ($InsLog) 
+        {
+         echo '<script type="text/JavaScript">alert("Recebido com Sucesso");</script>';
+         echo '<script type="text/javascript">window.close();</script>';
         }
-
-
-
+        else
+        {
+         echo '<script type="text/javascript">alert("Erro ao salvar Log");</script>';
+        }
+       }
         }
        ?>
       </div>
