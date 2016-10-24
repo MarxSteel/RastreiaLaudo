@@ -2,13 +2,8 @@
 require("restritos.php"); 
 require_once 'init.php';
 $PDO = db_connect();
- $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
- $query->execute();
-  $row = $query->fetch();
-  $NomeUserLogado = $row['Nome'];
-
+require_once 'QueryUser.php';
 require_once 'queryDashboard.php';
-
 ?>
 
 <!DOCTYPE html>
