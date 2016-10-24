@@ -9,6 +9,7 @@ $endereco = $_SERVER ['REQUEST_URI'];
     <i class="fa fa-home"></i> <span>Início</span>
    </a>
   </li>
+  <?php if ($PermMontagem == "9") { ?> 
   <li class="<?php echo $cMont; ?>">
    <a href="<?php echo $server; ?>/P2/Montagem.php">
     <i class="fa fa-wrench"></i>
@@ -27,6 +28,7 @@ $endereco = $_SERVER ['REQUEST_URI'];
       Meus Equipamentos
    </a>
   </li>
+  <?php } else{ } if ($PermReteste === "9") { ?>
   <li class="<?php echo $cReteste; ?>">
    <a href="<?php echo $server; ?>/P2/Reteste.php">
     <i class="fa fa-refresh"></i>
@@ -45,21 +47,25 @@ $endereco = $_SERVER ['REQUEST_URI'];
       Imprimir
    </a>
   </li>
+  <?php } else{ } if ($Catraca === "9") { ?>
   <li class="<?php echo $cCat; ?>">
    <a href="<?php echo $server; ?>/Cat/dashboard.php">
     <i class="fa fa-map-signs"></i>
       Catracas
    </a>
   </li>
+  <?php } else{ } if ($PermAdm === "9") { ?>
   <li class="<?php echo $cUsers; ?>">
    <a href="<?php echo $server; ?>/adm/usuarios.php">
     <i class="fa fa-users"></i>
       Usuários
    </a>
   </li>
+  <?php } else{ } if ($Plaudo === "9") { ?>
   <li class="<?php echo $cLaudo; ?>">
    <a href="<?php echo $server; ?>/almox/dashboard.php">
     <i class="fa fa-clipboard"></i>
       Laudos de teste
    </a>
-  </li>  
+  </li> 
+  <?php } else{ } ?>

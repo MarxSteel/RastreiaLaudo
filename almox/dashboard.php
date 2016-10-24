@@ -1,12 +1,10 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
+$cLaudo = "active";
 $PDO = db_connect();
- $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
- $query->execute();
-  $row = $query->fetch();
-  $NomeUserLogado = $row['Nome'];
-  $foto = $row['Foto'];
+require_once '../QueryUser.php';
+require_once '../queryDashboard.php';
   $ChamaLaudo = "SELECT * FROM laudo ORDER BY id DESC";
   $L1 = $PDO->prepare($ChamaLaudo);
   $L1->execute();
@@ -18,12 +16,12 @@ $PDO = db_connect();
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <title><?php echo $titulo; ?></title>
  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+ <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+ <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+ <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+ <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -40,17 +38,15 @@ $PDO = db_connect();
     <ul class="nav navbar-nav">
      <li class="dropdown user user-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-       <img src="../dist/img/user/<?php echo $foto; ?>" class="user-image">
        <span class="hidden-xs"><?php echo $NomeUserLogado; ?></span>
       </a>
       <ul class="dropdown-menu">
        <li class="user-header">
-        <img src="../dist/img/user/<?php echo $foto; ?>" class="img-circle">
         <p><?php echo $NomeUserLogado; ?></p>
        </li>
        <li class="user-footer">
         <div class="pull-left">
-         <a href="../user/perfil.php" class="btn btn-info">Dados de Perfil</a>
+         <a href="user/perfil.php" class="btn btn-info">Dados de Perfil</a>
         </div>
         <div class="pull-right">
          <a href="../logout.php" class="btn btn-danger">Sair</a>
@@ -67,14 +63,6 @@ $PDO = db_connect();
   </header>
   <aside class="main-sidebar">
    <section class="sidebar">
-    <div class="user-panel">
-     <div class="pull-left image">
-      <img src="../dist/img/user/<?php echo $foto; ?>" class="img-circle">
-     </div>
-     <div class="pull-left info">
-      <p><?php echo $NomeUserLogado; ?></p>
-     </div>
-    </div>
     <?php include_once '../menuLateral.php'; ?>
     </section>
   </aside>
@@ -84,6 +72,7 @@ $PDO = db_connect();
  </section>
  <section class="content">
   <div class="row">
+  <?php if ($Plaudo === "9") { if ($Cclaudo === "9") { ?>
    <div class="col-md-4 col-xs-12">
     <div class="info-box">
      <a data-toggle="modal" data-target="#novoLaudo"">
@@ -94,6 +83,7 @@ $PDO = db_connect();
      <div class="info-box-content"><br /><h4>Cadastrar Nova nota</h4></div>
     </div>
    </div>
+   <?php } else{ } ?>
    <div class="col-xs-12">
     <div class="box">
      <div class="box-header">
@@ -104,7 +94,7 @@ $PDO = db_connect();
        <thead>
         <tr>
          <th width="10" >#</th>
-         <th width="120" >Data</th>
+         <th width="50" >Data</th>
          <th>Item</th>
          <th width="35" >Status</th>
          <th width="10" ></th>
@@ -164,12 +154,24 @@ $PDO = db_connect();
      </div><!-- box.body -->
     </div><!-- box -->
    </div>
-   <?php include_once "modalAlmox.php"; ?>
+   <?php include_once "modalAlmox.php";  } else{ ?>
+   <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red">
+      <i class="fa fa-exclamation-triangle"></i>
+      </span>
+      <div class="info-box-content">
+       <h4><strong><i>Atenção!</i></strong></h4>
+       <h4>Você não possui privilégios suficientes para abrir esta página. Contate o Administrador!</h4>
+      </div>
+     </div>
+    </div>
+    <?php } ?>
+  
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
-</div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
@@ -186,7 +188,7 @@ $PDO = db_connect();
       "searching": true,
       "ordering": false,
       "info": true,
-      "autoWidth": true
+      "autoWidth": false
     });
   });
 </script>
@@ -199,5 +201,4 @@ function abrir(URL) {
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
 }
 </script>
-</body>
 </html>
