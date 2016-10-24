@@ -133,24 +133,35 @@ $PDO = db_connect();
              echo '<td>';
              echo '<button class="btn bg-orange btn-block btn-xs disabled">ENVIADO</button>';
              echo '</td>';
-             echo '<td><a class="btn btn-danger btn-block btn-xs" href="';
+             echo '<td><a class="btn bg-olive btn-block btn-xs" href="';
               echo "javascript:abrir('Recebe.php?ID=" . $L['id'] . "');";
               echo '"><i class="fa fa-plus"> RECEBER</i></a></td>';
             }
             elseif ($Status === "2") {
              echo '<td>';
-             echo '<button class="btn btn-info btn-block btn-xs disabled">RECEBIDO</button>';
+             echo '<button class="btn btn-info btn-block btn-xs disabled">AGUARDANDO REVISÃO</button>';
              echo '</td>';
              echo '<td><a class="btn bg-navy btn-block btn-xs" href="';
               echo "javascript:abrir('Preencher.php?ID=" . $L['id'] . "');";
               echo '"><i class="fa fa-plus"> LAUDO</i></a></td>';
-
             }
             elseif ($Status === "3") {
             echo '<td>';
-            echo '<button class="btn btn-success btn-block btn-xs disabled">REVISADO</button>';
+            echo '<button class="btn btn-success btn-block btn-xs disabled">APROVADO</button>';
             echo '</td>';
-            echo '<td></td>';
+            $LkL = $L['Laudo'];
+            echo '<td>';
+            echo '<a href="laudos/' . $LkL . ' " target="_blank" class="btn btn-default btn-xs"><i class="fa fa-download"></i> BAIXAR </a>';
+            echo '</td>';
+            }
+            elseif ($Status === "4") {
+            echo '<td>';
+            echo '<button class="btn btn-danger btn-block btn-xs disabled">REPROVADO</button>';
+            echo '</td>';
+            $LkL = $L['Laudo'];
+            echo '<td>';
+            echo '<a href="laudos/' . $LkL . ' " target="_blank" class="btn btn-default btn-xs"><i class="fa fa-download"></i> BAIXAR </a>';
+            echo '</td>';
             }
             echo '<td><a class="btn btn-default btn-block btn-xs" href="';
             echo "javascript:abrir('vProduto.php?ID=" . $L['id'] . "');";

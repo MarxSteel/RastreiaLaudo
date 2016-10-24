@@ -19,7 +19,6 @@
     $Observa = $campo['obs'];
     $DataCadastrado = $campo['dataCadastro'];
 
-    $Teste = "Teste";
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,72 +71,54 @@ word-wrap: break-word;
    <section class="content">
     <div class="box box-default">
      <div class="box-body">
-      <div class="col-xs-12">
-       <li class="list-group-item">
-        <strong><?php echo $Nome; ?></strong>
-       </li>
-       <li class="list-group-item">
-        <b>Código:</b>
-         <a class="pull-right"><?php echo $Codigo; ?></a>
-       </li>
-       <li class="list-group-item">
-        <b>Quantidade Recebido:</b>
-         <a class="pull-right"><?php echo $QntTotal; ?></a>
-       </li>
-       <li class="list-group-item">
-        <b>Quantidade Enviado para teste:</b>
-        <a class="pull-right"><?php echo $QntTeste; ?></a>
-       </li>
-       <li class="list-group-item">
-        <b>Data de Cadastro:</b>
-        <a class="pull-right"><?php echo $DataCadastrado; ?></a>
-       </li>
-       <li class="list-group-item">
-        <b>Cadastrado por:</b>
-        <a class="pull-right"><?php echo $DataCadastrado; ?></a>
-       </li>
-       <li class="list-group-item"><b>Observações</b><br />
-        <i class="texto">
-         <?php echo $Teste; ?>
-        </i>
-       </li>
-      </div>
-      <div class="col-xs-12"><br />
-       <form name="recebeItem" id="name" method="post" action="" enctype="multipart/form-data">
-         <input name="recebeItem" type="submit" class="btn bg-olive btn-flat btn-block btn-lg" id="recebeItem" value="RECEBER ITEM"  /> 
-       </form>
-       <?php
-        if(@$_POST["recebeItem"])
-        {
-         $DataRecebe = date('d/m/Y H:i:s');
-         $Recebe = $PDO->query("UPDATE laudo SET DataRecebe='$DataRecebe', usrRec='$NomeUserLogado', Status='2' WHERE id='$id'");
+      <form name="lau" id="name" method="post" action="" enctype="multipart/form-data">
+       <div class="col-xs-4">Status 
+        <select class="form-control" name="status" required="required">
+         <option value="" selected="selected">SELECIONE</option>
+         <option value="4">REPROVADO</option>
+         <option value="3">APROVADO</option>
+        </select>
+       </div>
+       <div class="col-xs-8">Selecionar Arquivo
+        <input type="file" name="fileUpload" class="form-control" required="required">
+       </div>
+       <div class="col-xs-12">Observações
+        <textarea name="obs" cols="45" rows="3" class="form-control" id="obs"></textarea><hr>
+       </div>
+       <div class="pull-right"><br />
+        <input name="lau" type="submit" class="btn bg-red btn-flat" id="lau" value="ADICIONAR LAUDO"  /> 
+       </div>  
+      </form>
+      <?php
+       if(@$_POST["lau"])
+       {
+        $Cod = $_POST['status'];
+        $Desc = str_replace("\r\n", "<br/>", strip_tags($_POST["obs"]));
+        $DataHoje = date('d/m/Y H:i:s');
+        $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); //Pegando extensão do arquivo
+        $DataName = date("Y.m.d-H.i.s"); //Definindo um novo nome para o arquivo
+        $NovoNome = md5($DataName) . $ext;
+        $dir = 'laudos/'; //Diretório para uploads
+        move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$NovoNome); //Fazer upload do arquivo
+         $AddLaudo = $PDO->query("UPDATE laudo SET Status='$Cod', usrLaudo='$NomeUserLogado', DataLaudo='$DataHoje', ObsLaudo='Desc', Laudo='$NovoNome' WHERE id='$id'");             
+         if ($AddLaudo) {
+          echo '<script type="text/javascript">alert("Laudo Adicionado");</script>';
+          echo '<script type="text/javascript">window.close();</script>';
 
-        
-         if ($Recebe) 
-         {
-            $NovoEvento = "Item Recebido";
-            $NovoLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, DataCadastrado, EventoID) VALUES ('$NovoEvento', '$NomeUserLogado', '$DataRecebe', '2')");
-          if ($NovoLog)
-          {
-          echo '<script type="text/JavaScript">alert("NÃO FOI POSSÍVEL RECEBER!");</script>';
-          }
-         else
-         {
-          echo '<script type="text/JavaScript">alert("RECEBIDO!");</script>';
-          echo '<script type="text/JavaScript">window.close();</script>';
          }
 
-        }
+
+       }
 
 
+      
+      ?>
 
-        }
-       ?>
-      </div>
      </div>
-    </section>
-   </div>
+    </div>
+   </section>
   </div>
+ </div>
 <?php include_once '../footer.php'; ?>
 </div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
