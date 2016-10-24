@@ -2,11 +2,8 @@
  require("../restritos.php"); 
  require_once '../init.php';
  $PDO = db_connect();
-  $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
-  $query->execute();
-   $row = $query->fetch();
-   $NomeUserLogado = $row['Nome'];
-   $foto = $row['Foto'];
+require_once '../QueryUser.php';
+
    $id = $_GET['ID'];
    $dFor = $PDO->prepare("SELECT * FROM laudo WHERE id='$id'");
    $dFor->execute();
@@ -57,7 +54,6 @@ word-wrap: break-word;
      <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
        <a href="../#" class="dropdown-toggle" data-toggle="dropdown">
-        <img src="../dist/img/user/<?php echo $foto; ?>" class="user-image">
         <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span>
        </a>
       </li>
