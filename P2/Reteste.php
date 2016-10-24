@@ -117,17 +117,17 @@ $QryPlus->execute();
             echo '<td>' . $R1510['NumREP'] . '</td>';
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'Detalhe1510.php?ID=" . $R1510['NumREP'] . "');";
+            echo "'1510Detalhe.php?ID=" . $R1510['NumREP'] . "');";
             echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
             echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'Libera1510.php?ID=" . $R1510['NumREP'] . "');";
+            echo "'1510Libera.php?ID=" . $R1510['NumREP'] . "');";
             echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
             echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'Reprova1510.php?ID=" . $R1510['NumREP'] . "');";
+            echo "'1510Reprova.php?ID=" . $R1510['NumREP'] . "');";
             echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
-              endwhile;
+            endwhile;
             ?>
            </tbody>
           </table>  
