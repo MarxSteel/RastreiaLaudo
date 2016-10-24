@@ -98,7 +98,7 @@ word-wrap: break-word;
        </li>
        <li class="list-group-item"><b>Observações</b><br />
         <i class="texto">
-         <?php echo $Observa; ?>
+         <?php echo $Teste; ?>
         </i>
        </li>
       </div>

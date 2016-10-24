@@ -19,7 +19,6 @@
     $Observa = $campo['obs'];
     $DataCadastrado = $campo['dataCadastro'];
 
-    $Teste = "Teste";
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,37 +101,6 @@ word-wrap: break-word;
         </i>
        </li>
       </div>
-      <div class="col-xs-12"><br />
-       <form name="recebeItem" id="name" method="post" action="" enctype="multipart/form-data">
-         <input name="recebeItem" type="submit" class="btn bg-olive btn-flat btn-block btn-lg" id="recebeItem" value="RECEBER ITEM"  /> 
-       </form>
-       <?php
-        if(@$_POST["recebeItem"])
-        {
-         $DataRecebe = date('d/m/Y H:i:s');
-         $Recebe = $PDO->query("UPDATE laudo SET DataRecebe='$DataRecebe', usrRec='$NomeUserLogado', Status='2' WHERE id='$id'");
-
-        
-         if ($Recebe) 
-         {
-            $NovoEvento = "Item Recebido";
-            $NovoLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, DataCadastrado, EventoID) VALUES ('$NovoEvento', '$NomeUserLogado', '$DataRecebe', '2')");
-          if ($NovoLog)
-          {
-          echo '<script type="text/JavaScript">alert("NÃO FOI POSSÍVEL RECEBER!");</script>';
-          }
-         else
-         {
-          echo '<script type="text/JavaScript">alert("RECEBIDO!");</script>';
-          echo '<script type="text/JavaScript">window.close();</script>';
-         }
-
-        }
-
-
-
-        }
-       ?>
       </div>
      </div>
     </section>
