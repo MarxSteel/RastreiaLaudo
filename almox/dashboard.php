@@ -7,12 +7,9 @@ $PDO = db_connect();
   $row = $query->fetch();
   $NomeUserLogado = $row['Nome'];
   $foto = $row['Foto'];
-
-
-  $ChamaLaudo = "SELECT * FROM laudo";
+  $ChamaLaudo = "SELECT * FROM laudo ORDER BY id DESC";
   $L1 = $PDO->prepare($ChamaLaudo);
   $L1->execute();
-
 ?>
 
 <!DOCTYPE html>
@@ -23,16 +20,10 @@ $PDO = db_connect();
  <title><?php echo $titulo; ?></title>
  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
@@ -175,8 +166,6 @@ $PDO = db_connect();
     </div><!-- box -->
    </div>
    <?php include_once "modalAlmox.php"; ?>
-
-
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
@@ -200,14 +189,14 @@ $PDO = db_connect();
 <!-- page script -->
 <script>
   $(function () {
-    $("#laudos").DataTable();
-    $('#example2').DataTable({
+    $("#laudosss").DataTable();
+    $('#laudos').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": false,
       "info": true,
-      "autoWidth": false
+      "autoWidth": true
     });
   });
 </script>
@@ -218,7 +207,6 @@ function abrir(URL) {
   var left = 99;
   var top = 99;
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
- 
 }
 </script>
 </body>
