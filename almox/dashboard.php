@@ -158,7 +158,10 @@ $PDO = db_connect();
             echo '<td>';
             echo '<button class="btn btn-danger btn-block btn-xs disabled">REPROVADO</button>';
             echo '</td>';
-            echo '<td></td>';
+            $LkL = $L['Laudo'];
+            echo '<td>';
+            echo '<a href="laudos/' . $LkL . ' " target="_blank" class="btn btn-default btn-xs"><i class="fa fa-download"></i> BAIXAR </a>';
+            echo '</td>';
             }
             echo '<td><a class="btn btn-default btn-block btn-xs" href="';
             echo "javascript:abrir('vProduto.php?ID=" . $L['id'] . "');";
