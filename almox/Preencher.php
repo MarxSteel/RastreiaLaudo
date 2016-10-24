@@ -101,6 +101,36 @@ word-wrap: break-word;
         $dir = 'laudos/'; //Diretório para uploads
         move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$NovoNome); //Fazer upload do arquivo
          $AddLaudo = $PDO->query("UPDATE laudo SET Status='$Cod', usrLaudo='$NomeUserLogado', DataLaudo='$DataHoje', ObsLaudo='Desc', Laudo='$NovoNome' WHERE id='$id'");             
+         
+         if ($AddLaudo)
+          {
+            if ($Cod === "4") {
+              $TipoLaudo = "REPROVADO";
+            elseif ($Cod === "5") {
+              $TipoLaudo = "APROVADO";
+            }
+            else{
+
+            }
+            
+          $Ev = "Atualizado Laudo, Status: " . $TipoLaudo;
+        $InsLog = $PDO->query("INSERT INTO loglaudo (Evento, UserEvento, EventoID, DataCadastro) VALUES ('$Ev', '$NomeUserLogado', '3', '$DataRecebe')"); 
+        if ($InsLog) 
+        {
+         echo '<script type="text/JavaScript">alert("Atualizado com Sucesso");</script>';
+         echo '<script type="text/javascript">window.close();</script>';
+        }
+        else
+        {
+         echo '<script type="text/javascript">alert("Erro ao salvar Log");</script>';
+        }
+       }
+
+
+
+
+
+
          if ($AddLaudo) {
           echo '<script type="text/javascript">alert("Laudo Adicionado");</script>';
           echo '<script type="text/javascript">window.close();</script>';
