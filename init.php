@@ -4,17 +4,12 @@
 define('DB_HOST', 'localhost:8889');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
-define('DB_NAME', 'estoque');
+define('DB_NAME', 'producao');
 
-function dbcon()
-{
-    @mysql_connect("localhost:8889", "root", "root") or die(mysql_error());
-    @mysql_select_db("estoque") or die(mysql_error());
-}
 $host = "localhost:8889";
 $user = "root";
 $pass = "root";
-$banco = "estoque";
+$banco = "producao";
 $versao = "3.3.5";
 
 //AQUI EU DECLARO A FUNÇÃO DE CHAMAR PORCENTAGEM
