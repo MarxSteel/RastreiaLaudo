@@ -6,7 +6,9 @@ $PDO = db_connect();
  $query->execute();
   $row = $query->fetch();
   $NomeUserLogado = $row['Nome'];
-  $foto = $row['Foto'];
+
+require_once 'queryDashboard.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -38,12 +40,10 @@ $PDO = db_connect();
     <ul class="nav navbar-nav">
      <li class="dropdown user user-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-       <img src="dist/img/user/<?php echo $foto; ?>" class="user-image">
        <span class="hidden-xs"><?php echo $NomeUserLogado; ?></span>
       </a>
       <ul class="dropdown-menu">
        <li class="user-header">
-        <img src="dist/img/user/<?php echo $foto; ?>" class="img-circle">
         <p><?php echo $NomeUserLogado; ?></p>
        </li>
        <li class="user-footer">
@@ -65,14 +65,6 @@ $PDO = db_connect();
   </header>
   <aside class="main-sidebar">
    <section class="sidebar">
-    <div class="user-panel">
-     <div class="pull-left image">
-      <img src="dist/img/user/<?php echo $foto; ?>" class="img-circle">
-     </div>
-     <div class="pull-left info">
-      <p><?php echo $NomeUserLogado; ?></p>
-     </div>
-    </div>
     <?php include_once 'menuLateral.php'; ?>
     </section>
   </aside>
