@@ -5,7 +5,6 @@ $PDO = db_connect();
 require_once 'QueryUser.php';
 require_once 'queryDashboard.php';
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +68,32 @@ require_once 'queryDashboard.php';
  </section>
  <section class="content">
   <div class="row">
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="P2/Montagem.php" >
+       <span class="info-box-icon btn-primary"><i class="fa fa-wrench"></i></span>
+      </a>
+      <div class="info-box-content"><h4>NOVO EQUIPAMENTO</h4></div>
+     </div>
+     <div class="box-footer no-padding">
+      <ul class="nav nav-stacked">
+       <li>
+        <a>Meta Prevista <span class="pull-right badge bg-blue"><?php echo $MetaPrevista; ?></span></a>
+       </li>
+       <li>
+        <a>Meta Alacançada <span class="pull-right badge bg-red"><?php echo $MetaRealizada; ?></span></a>
+       </li>
+       <?php 
+        echo '<li><div class="progress progress active">';
+        echo '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:' . porcentagem_nnx ( $MetaRealizada, $MetaPrevista) . '%">';
+       ?>  
+      </ul>               
+     </div><!-- box-footer no-padding -->
+    </div><!-- box box-widget widget-user -->
+   </div><!-- col-md-3 col-sm-6 col-xs-12 -->
+
+
   <div class="col-md-4">
    <div class="info-box">
     <a href="almox/dashboard.php" >
@@ -77,8 +102,6 @@ require_once 'queryDashboard.php';
     </a>
     <div class="info-box-content"><h4>Laudos de teste</h4></div>
    </div>
-
-
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
