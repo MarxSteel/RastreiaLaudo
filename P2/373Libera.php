@@ -128,7 +128,7 @@ include_once '373Valida.php';
         if(@$_POST["l373"])
         {
          $DataHoje = date('Y-m-d H:i:s');
-         $executa = $PDO->query("UPDATE cadastro_373 SET Status='3', UserLibera='$NomeUserLogado', Datalibera='$DataHoje' WHERE NumSerie='$NumeroREP' ");
+         $executa = $PDO->query("UPDATE cadastro_373 SET Status='3', UserLibera='$NomeUserLogado', DataLibera='$DataHoje' WHERE NumSerie='$NumeroREP' ");
          if($executa)
          {
          echo '<script type="text/javascript">alert("Liberado Com Sucesso!");</script>';

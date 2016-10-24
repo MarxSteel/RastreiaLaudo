@@ -4,7 +4,9 @@ require_once '../init.php';
 $NumeroREP = $_GET['ID']; 
 $PDO = db_connect();
 require_once '../QueryUser.php';
-include_once '1510Valida.php';
+include_once '373Valida.php';
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,6 +20,11 @@ include_once '1510Valida.php';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+  <style type="text/css">
+  .texto {
+    word-wrap: break-word;
+  }
+  </style>
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
  <div class="wrapper">
@@ -57,7 +64,7 @@ include_once '1510Valida.php';
        </li>
        <li class="list-group-item">
         <b>Reprovado:</b>
-        <a class="pull-right"><code><?php echo $Reprovado; ?> </code></a>
+        <a class="pull-right"><code><?php echo $DataRetorna; ?> </code></strong></a>
        </li>
       </div>
       <div class="col-xs-6">
@@ -71,7 +78,7 @@ include_once '1510Valida.php';
        </li>
        <li class="list-group-item">
         <b>Data Liberado:</b>
-        <a class="pull-right"><code><?php echo $DataLiberado; ?> </code></strong></a>
+        <a class="pull-right"><code><?php echo $DataLiberado; ?> </code></a>
        </li>
        </div>
       <div class="col-xs-8">
@@ -84,6 +91,10 @@ include_once '1510Valida.php';
         <b>Biometria:</b>
         <a class="pull-right"><code><?php echo $Biometria; ?> </code></a>
        </li>
+       <li class="list-group-item">
+        <b>Firmware:</b>
+        <a class="pull-right"><code><?php echo $Firm; ?> </code></a>
+       </li>
       </div>
       <div class="col-xs-4">
        <li class="list-group-item">
@@ -95,27 +106,29 @@ include_once '1510Valida.php';
         <b>Barras:</b>
         <a class="pull-right"><code><?php echo $Barras; ?> </code></a>
        </li>
+       <li class="list-group-item">
+        <b>Display:</b>
+        <a class="pull-right"><code><?php echo $Display; ?> </code></a>
+       </li>
       </div>
      <div class="col-xs-12"> 
-      <h4>HISTÓRICO DO EQUIPAMENTO</h4>
+      <h4>HISTÓRICO DE CORREÇÕES DO EQUIPAMENTO</h4>
      </div>
       <div class="col-xs-12">
        <li class="list-group-item">
-        <i class="texto">
-        <?php echo $Descricao; ?>
-        </i>
+        <i class="texto"><?php echo $Descricao; ?></i>
        </li>
       </div>
-      <form name="rep1510" id="name" method="post" action="" enctype="multipart/form-data">
+      <form name="r373" id="name" method="post" action="" enctype="multipart/form-data">
        <div class="col-xs-12">Digite aqui o motivo para reprovar
         <textarea name="descricao" cols="45" rows="3" class="form-control" id="descricao"></textarea>
        </div>
        <div class="col-xs-12"><br />
-        <input name="rep1510" type="submit" class="btn btn-danger btn-lg btn-block" id="rep1510" value="REPROVAR EQUIPAMENTO"  />
+        <input name="r373" type="submit" class="btn btn-danger btn-lg btn-block" id="r373" value="REPROVAR EQUIPAMENTO"  />
        </div>
       </form>
        <?php 
-        if(@$_POST["rep1510"])
+        if(@$_POST["r373"])
         {
          $DataHoje = date('Y-m-d H:i:s');
          $DataBrasil = date('d/m/Y H:i:s');
@@ -125,7 +138,7 @@ include_once '1510Valida.php';
          $Dt = "<br /><strong>Data: </strong>" . $DataBrasil;
          $Ob = "<br /><strong>Observação: </strong><br />" . $Obser;
          $Atual = $Descricao . $At . $Us . $Dt . $Ob;
-         $executa = $PDO->query("UPDATE cadastro_1510 SET Status='2', UserReteste='$NomeUserLogado', DataRetorna='$DataHoje', Observa='$Atual' WHERE NumREP='$NumeroREP' ");
+         $executa = $PDO->query("UPDATE cadastro_373 SET Status='2', UserLibera='$NomeUserLogado', DataRetorna='$DataHoje', Observa='$Atual' WHERE NumSerie='$NumeroREP' ");
          if($executa)
          {
          echo '<script type="text/javascript">alert("Reprovado Com Sucesso!");</script>';
@@ -133,7 +146,7 @@ include_once '1510Valida.php';
          }
          else
          {
-         echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL LIBERAR EQUIPAMENTO");</script>';
+         echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL REPROVAR EQUIPAMENTO");</script>';
          echo '<script type="text/javascript">window.close();</script>';
          }
         }
@@ -141,7 +154,8 @@ include_once '1510Valida.php';
      </div>
     </section>
   </div>
- </div><?php include_once '../footer.php'; ?></div>
+ </div>
+<?php include_once '../footer.php'; ?></div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../dist/js/app.min.js"></script>
