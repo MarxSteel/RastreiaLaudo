@@ -100,7 +100,7 @@ word-wrap: break-word;
         $NovoNome = md5($DataName) . $ext;
         $dir = 'laudos/'; //Diretório para uploads
         move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$NovoNome); //Fazer upload do arquivo
-         $AddLaudo = $PDO->query("UPDATE laudo SET Status='$Cod', usrLaudo='$NomeUserLogado', DataLaudo='$DataHoje', ObsLaudo='Desc' WHERE id='$id'");             
+         $AddLaudo = $PDO->query("UPDATE laudo SET Status='$Cod', usrLaudo='$NomeUserLogado', DataLaudo='$DataHoje', ObsLaudo='Desc', Laudo='$NovoNome' WHERE id='$id'");             
          if ($AddLaudo) {
           echo '<script type="text/javascript">alert("Laudo Adicionado");</script>';
           echo '<script type="text/javascript">window.close();</script>';
