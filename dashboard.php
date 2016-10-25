@@ -185,7 +185,7 @@ require_once 'queryDashboard.php';
    <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
-      <a href="P2/Quantgeral.php" >
+      <a href="P2/QuantGeral.php" >
        <span class="info-box-icon bg-navy">
         <i class="fa fa-server"></i>
        </span>
@@ -248,15 +248,27 @@ require_once 'queryDashboard.php';
    </div>
    <?php } else{ } if ($Plaudo === "9") { ?>
    <div class="col-md-3 col-sm-6 col-xs-12">
-   <div class="info-box">
-    <a href="almox/dashboard.php" >
-     <span class="info-box-icon btn-danger">
-      <i class="fa fa-clipboard"></i></span>
-    </a>
-    <div class="info-box-content"><h4>Laudos de teste</h4></div>
-   </div>
-  </div><!-- CLASS ROW -->
+    <div class="info-box">
+     <a href="almox/dashboard.php" >
+      <span class="info-box-icon btn-danger">
+       <i class="fa fa-clipboard"></i></span>
+     </a>
+     <div class="info-box-content"><h4>Laudos de teste</h4></div>
+    </div>
+   </div><!-- CLASS ROW -->
    <?php } else{ } ?>
+   <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="pedidos/dashboard.php" >
+       <span class="info-box-icon bg-aqua">
+        <i class="fa fa-newspaper-o"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>PEDIDOS</h4></div>
+     </div>                  
+    </div>
+   </div> 
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once 'footer.php'; ?>
