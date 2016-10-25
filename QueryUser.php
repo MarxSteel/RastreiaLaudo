@@ -12,5 +12,5 @@
   $Catraca = $row['CadCat'];					      // PERMISSÃO PARA ADICIONAR CATRACAS
   $Plaudo = $row['PrivLaudo'];					    // PERMISSÃO PARA ADICIONAR LAUDOS
   $Cclaudo = $row['CadLaudo'];               // PERMISSÃO PARA CADASTRAR PEDIDO DE LAUDO
-
+  $RLaudo = $row['RecLog'];
 ?>
