@@ -9,11 +9,11 @@ $Chama1510 = "SELECT * FROM cadastro_1510 WHERE UserCadastro='$NomeUserLogado' O
 $Qry1510 = $PDO->prepare($Chama1510);
 $Qry1510->execute();
 
-$Chama373 = "SELECT * FROM cadastro_373 WHERE UserCadastro='$NomeUserLogado'";
+$Chama373 = "SELECT * FROM cadastro_373 WHERE UserCadastro='$NomeUserLogado' ORDER BY id DESC";
 $Qry373 = $PDO->prepare($Chama373);
 $Qry373->execute();
 
-$ChamaAcc = "SELECT * FROM cadastro_acesso WHERE UserCadastro='$NomeUserLogado'";
+$ChamaAcc = "SELECT * FROM cadastro_acesso WHERE UserCadastro='$NomeUserLogado' ORDER BY id DESC";
 $QryAcc = $PDO->prepare($ChamaAcc);
 $QryAcc->execute();
 
