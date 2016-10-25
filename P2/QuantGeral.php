@@ -77,7 +77,7 @@ $QryAcc->execute();
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Meus Equipamentos<small><?php echo $titulo; ?></small></h1>
+  <h1>Quantidade Geral<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
