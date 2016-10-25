@@ -13,4 +13,6 @@
   $Plaudo = $row['PrivLaudo'];					    // PERMISSÃO PARA ADICIONAR LAUDOS
   $Cclaudo = $row['CadLaudo'];               // PERMISSÃO PARA CADASTRAR PEDIDO DE LAUDO
   $RLaudo = $row['RecLog'];
+  $pedido = $row['pedido'];
+
 ?>
