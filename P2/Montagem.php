@@ -68,7 +68,7 @@ require_once '../queryDashboard.php';
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Página Inicial<small><?php echo $titulo; ?></small></h1>
+  <h1>Montagem de Equipamentos<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
