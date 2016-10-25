@@ -199,7 +199,7 @@ $QryPlus->execute();
           </table>     
          </div>
          <div class="tab-pane" id="cartografico">
-          <table id="cartografico" class="table table-responsive">
+          <table id="carto" class="table table-responsive tabel-bordered">
            <thead>
             <tr>
              <th>Data / Hora</th>
@@ -269,14 +269,9 @@ $QryPlus->execute();
       "info": true,
       "autoWidth": true
     });
-  });
-</script>
-<script>
-  $(function () {
     $("#cad373").DataTable();
     $("#cadACESSO").DataTable();
-    $("#cartografico").DataTable();
-
+    $("#carto").DataTable();
   });
 </script>
 <script language="JavaScript">
