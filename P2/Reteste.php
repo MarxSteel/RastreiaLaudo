@@ -82,7 +82,7 @@ $QryPlus->execute();
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Página Inicial<small><?php echo $titulo; ?></small></h1>
+  <h1>Controle de Reteste<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
