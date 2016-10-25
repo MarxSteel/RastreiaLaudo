@@ -102,7 +102,7 @@ word-wrap: break-word;
           {
             if ($Cod === "4") {
               $TipoLaudo = "REPROVADO";
-            elseif ($Cod === "5") {
+            } elseif ($Cod === "5") {
               $TipoLaudo = "APROVADO";
             }
             else{
