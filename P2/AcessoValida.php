@@ -1,5 +1,5 @@
 <?php
-$DadosREP = $PDO->prepare("SELECT * FROM cadastro_373 WHERE NumSerie='$NumeroREP'");
+$DadosREP = $PDO->prepare("SELECT * FROM cadastro_acesso WHERE NumSerie='$NumeroREP'");
 $DadosREP->execute();
 $QryREP = $DadosREP->fetch();
 $Modelo = $QryREP['Modelo'];

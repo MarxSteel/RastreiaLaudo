@@ -183,13 +183,13 @@ $QryPlus->execute();
             echo '<td>' . $RACC['NumSerie'] . '</td>';
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'DetalheAcesso.php?ID=" . $RACC['NumSerie'] . "');";
+            echo "'AcessoDetalhe.php?ID=" . $RACC['NumSerie'] . "');";
             echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
             echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'LiberaAcesso.php?ID=" . $RACC['NumSerie'] . "');";
+            echo "'AcessoLibera.php?ID=" . $RACC['NumSerie'] . "');";
             echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
             echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'ReprovaAcesso.php?ID=" . $RACC['NumSerie'] . "');";
+            echo "'AcessoReprova.php?ID=" . $RACC['NumSerie'] . "');";
             echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
@@ -199,7 +199,7 @@ $QryPlus->execute();
           </table>     
          </div>
          <div class="tab-pane" id="cartografico">
-          <table id="cartografico" class="table table-responsive">
+          <table id="carto" class="table table-responsive tabel-bordered">
            <thead>
             <tr>
              <th>Data / Hora</th>
@@ -216,10 +216,10 @@ $QryPlus->execute();
             echo '<td>' . $plus['NumSerie'] . '</td>';
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'DetalheCart.php?ID=" . $plus['NumSerie'] . "');";
+            echo "'CartDetalhe.php?ID=" . $plus['NumSerie'] . "');";
             echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
             echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'LiberaCart.php?ID=" . $plus['NumSerie'] . "');";
+            echo "'CartLibera.php?ID=" . $plus['NumSerie'] . "');";
             echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
@@ -269,14 +269,9 @@ $QryPlus->execute();
       "info": true,
       "autoWidth": true
     });
-  });
-</script>
-<script>
-  $(function () {
     $("#cad373").DataTable();
     $("#cadACESSO").DataTable();
-    $("#cartografico").DataTable();
-
+    $("#carto").DataTable();
   });
 </script>
 <script language="JavaScript">
