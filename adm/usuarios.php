@@ -97,7 +97,7 @@ $QryUser->execute();
          echo '<td>';
           echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
           echo "'DeletaUser.php?ID=" . $User['codLogin'] . "');";
-          echo '"><i class="fa fa-remove"> Deletar Usuário </i></a>&nbsp;';
+          echo '"><i class="fa fa-remove"></i></a>&nbsp;';
          echo "</td>";
          echo "</tr>";
          endwhile;
