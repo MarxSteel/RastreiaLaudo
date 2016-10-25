@@ -7,21 +7,9 @@ require_once '../QueryUser.php';
 require_once '../queryDashboard.php';
 
 
-$Chama1510 = "SELECT * FROM cadastro_1510 WHERE Status='1' ORDER BY DataCadastro DESC";
-$Qry1510 = $PDO->prepare($Chama1510);
-$Qry1510->execute();
-
-$Chama373 = "SELECT * FROM cadastro_373 WHERE Status='1' ORDER BY DataCadastro DESC";
-$Qry373 = $PDO->prepare($Chama373);
-$Qry373->execute();
-
-$ChamaAcc = "SELECT * FROM cadastro_acesso WHERE Status='1' ORDER BY DataCadastro DESC";
-$QryAcc = $PDO->prepare($ChamaAcc);
-$QryAcc->execute();
-
-$ChamaPlus = "SELECT * FROM cadastro_cartografico WHERE Status='1' ORDER BY DataCadastro ASC";
-$QryPlus = $PDO->prepare($ChamaPlus);
-$QryPlus->execute();
+$Chamauser = "SELECT * FROM login";
+$QryUser = $PDO->prepare($Chamauser);
+$QryUser->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,153 +75,68 @@ $QryPlus->execute();
  <section class="content">
   <div class="row">
   <?php if ($PermAdm === "9") { ?>
-    <div class="col-md-12">
-     <div class="box box-widget widget-user">
+     <div class="col-md-8">
       <div class="info-box">
-       <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-         <li class="active"><a href="#rep" data-toggle="tab">REP 1510/INMETRO</a></li>
-         <li><a href="#373" data-toggle="tab">Ponto 373</a></li>
-         <li><a href="#acesso" data-toggle="tab">Acesso</a></li>
-         <li><a href="#cartografico" data-toggle="tab">Cartográficos</a></li>
-         <li class="pull-right"><h3>Lista de Equipamentos Aguardando Reteste</h3></a></li>
-        </ul>
-        <div class="tab-content">
-         <div class="tab-pane active" id="rep">
-          <table id="cadREP" class="table table-responsive">
-           <thead>
-            <tr>
-             <th>Data / Hora</th>
-             <th>Modelo</th>
-             <th>Nº de Série</th>
-             <th></th>
-            </tr> 
-           </thead>
-           <tbody>
-            <?php while ($R1510 = $Qry1510->fetch(PDO::FETCH_ASSOC)): 
-            echo '<tr>';
-            echo '<td>' . $R1510['DataCadastro'] . ' - ' . $R1510['HoraCadastro'] .'</td>';
-            echo '<td>' . $R1510['Modelo'] . '</td>';
-            echo '<td>' . $R1510['NumREP'] . '</td>';
-            echo '<td>';
-            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'1510Detalhe.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'1510Libera.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'1510Reprova.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
-            echo "</td>";
-            echo "</tr>";
-            endwhile;
-            ?>
-           </tbody>
-          </table>  
-         </div>
-         <div class="tab-pane" id="373">
-          <table id="cad373" class="table table-responsive">
-           <thead>
-            <tr>
-             <th>Data / Hora</th>
-             <th>Modelo</th>
-             <th>Nº de Série</th>
-             <th></th>
-            </tr> 
-           </thead>
-           <tbody>
-            <?php while ($R373 = $Qry373->fetch(PDO::FETCH_ASSOC)): 
-            echo '<tr>';
-            echo '<td>' . $R373['DataCadastro'] . ' - ' . $R373['HoraCadastro'] .'</td>';
-            echo '<td>' . $R373['Modelo'] . '</td>';
-            echo '<td>' . $R373['NumSerie'] . '</td>';
-            echo '<td>';
-            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'373Detalhe.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'373Libera.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'373Reprova.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
-            echo "</td>";
-            echo "</tr>";
-              endwhile;
-            ?>
-           </tbody>
-          </table>         
-         </div>
-         <div class="tab-pane" id="acesso">
-          <table id="cadACESSO" class="table table-responsive">
-           <thead>
-            <tr>
-             <th>Data / Hora</th>
-             <th>Modelo</th>
-             <th>Nº de Série</th>
-             <th></th>
-            </tr> 
-           </thead>
-           <tbody>
-            <?php while ($RACC = $QryAcc->fetch(PDO::FETCH_ASSOC)): 
-            echo '<tr>';
-            echo '<td>' . $RACC['DataCadastro'] . ' - ' . $RACC['HoraCadastro'] .'</td>';
-            echo '<td>' . $RACC['Modelo'] . '</td>';
-            echo '<td>' . $RACC['NumSerie'] . '</td>';
-            echo '<td>';
-            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'AcessoDetalhe.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'AcessoLibera.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'AcessoReprova.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
-            echo "</td>";
-            echo "</tr>";
-              endwhile;
-            ?>
-           </tbody>
-          </table>     
-         </div>
-         <div class="tab-pane" id="cartografico">
-          <table id="carto" class="table table-responsive tabel-bordered">
-           <thead>
-            <tr>
-             <th>Data / Hora</th>
-             <th>Modelo</th>
-             <th>Nº de Série</th>
-             <th></th>
-            </tr> 
-           </thead>
-           <tbody>
-            <?php while ($plus = $QryPlus->fetch(PDO::FETCH_ASSOC)): 
-            echo '<tr>';
-            echo '<td>' . $plus['DataCadastro'] . ' - ' . $plus['HoraCadastro'] .'</td>';
-            echo '<td>' . $plus['Modelo'] . '</td>';
-            echo '<td>' . $plus['NumSerie'] . '</td>';
-            echo '<td>';
-            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'CartDetalhe.php?ID=" . $plus['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'CartLibera.php?ID=" . $plus['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo "</td>";
-            echo "</tr>";
-              endwhile;
-            ?>
-           </tbody>
-          </table>
-         </div>                        
-        </div>
-       </div>
+       <table id="cadREP" class="table table-responsive">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Usuário</th>
+          <th>IP</th>
+          <th></th>
+         </tr> 
+        </thead>
+        <tbody>
+        <?php while ($User = $QryUser->fetch(PDO::FETCH_ASSOC)): 
+         echo '<tr>';
+         echo '<td>' . $User['codLogin'] .'</td>';
+         echo '<td>' . $User['Nome'] . '</td>';
+         echo '<td>' . $User['login'] . '</td>';
+         echo '<td>' . $User['MeuIP'] . '</td>';
+         echo '<td>';
+          echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
+          echo "'DeletaUser.php?ID=" . $User['codLogin'] . "');";
+          echo '"><i class="fa fa-remove"> Deletar Usuário </i></a>&nbsp;';
+         echo "</td>";
+         echo "</tr>";
+         endwhile;
+        ?>
+        </tbody>
+        </table>  
       </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#NovoProd"">
+       <span class="info-box-icon bg-yellow">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><br /><h4>Novo Usuário Produção</h4></div>
      </div>
     </div>
-  <?php } else{ ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#NovoAlmox"">
+       <span class="info-box-icon bg-olive">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><br /><h4>Novo Usuário Almoxarifado</h4></div>
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#NovoGeral"">
+       <span class="info-box-icon bg-red">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><br /><h4>Novo Usuário GERAL</h4></div>
+     </div>
+    </div>
+  <?php include_once 'ModalUser.php';  } else{ ?>
    <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-red">
