@@ -13,7 +13,17 @@ $RespTeste = $QryREP['UserCadastro'];
 $RespReteste = $QryREP['UserLibera'];
 $Status = $QryREP['Status'];
 $Firm = $QryREP['Firmware'];
-$Display = $QryREP['Display'];
+$Disp = $QryREP['Display'];
+  if ($Disp === "01") {
+    $Display = "ALFANUMÉRICO 16X02";
+  }
+  elseif ($Disp === "02") {
+    $Display = "GRÁFICO 128X64";
+  }
+  elseif ($Disp === "03") {
+    $Display = "TFT COLORIDO";
+  }
+
 
 //CHAMANDO OS DADOS DE LEITORA DO EQUIPAMENTO
 $ChBio = $QryREP['LeiBio'];
