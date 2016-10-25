@@ -81,7 +81,7 @@ $QryAcc->execute();
  </section>
  <section class="content">
   <div class="row">
-  <?php if ($PermReteste === "9") { ?>
+  <?php if ($PermMontagem === "9") { ?>
     <div class="col-md-12">
      <div class="box box-widget widget-user">
       <div class="info-box">
