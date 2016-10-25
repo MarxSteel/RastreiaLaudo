@@ -111,7 +111,7 @@ include_once '1510Valida.php';
         <textarea name="descricao" cols="45" rows="3" class="form-control" id="descricao"></textarea>
        </div>
        <div class="col-xs-12"><br />
-        <input name="rep1510" type="submit" class="btn btn-danger btn-lg btn-block" id="rep1510" value="REPROVAR EQUIPAMENTO"  />
+        <input name="rep1510" type="submit" class="btn btn-danger btn-lg btn-block" id="rep1510" value="DEVOLVER EQUIPAMENTO"  />
        </div>
       </form>
        <?php 
