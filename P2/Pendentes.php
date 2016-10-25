@@ -5,9 +5,18 @@ $cMont = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
 require_once '../queryDashboard.php';
-  $ChamaLaudo = "SELECT * FROM laudo ORDER BY id DESC";
-  $L1 = $PDO->prepare($ChamaLaudo);
-  $L1->execute();
+$Chama1510 = "SELECT * FROM cadastro_1510 WHERE Status='2' AND UserCadastro='$NomeUserLogado'";
+$Qry1510 = $PDO->prepare($Chama1510);
+$Qry1510->execute();
+
+$Chama373 = "SELECT * FROM cadastro_373 WHERE Status='2' AND UserCadastro='$NomeUserLogado'";
+$Qry373 = $PDO->prepare($Chama373);
+$Qry373->execute();
+
+$ChamaAcc = "SELECT * FROM cadastro_acesso WHERE Status='2' AND UserCadastro='$NomeUserLogado'";
+$QryAcc = $PDO->prepare($ChamaAcc);
+$QryAcc->execute();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,7 +82,111 @@ require_once '../queryDashboard.php';
  <section class="content">
   <div class="row">
   <?php if ($PermMontagem === "9") { ?>
-
+    <div class="col-md-12">
+     <div class="box box-widget widget-user">
+      <div class="info-box">
+       <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+         <li class="active"><a href="#rep" data-toggle="tab">REP 1510/INMETRO</a></li>
+         <li><a href="#373" data-toggle="tab">Ponto 373</a></li>
+         <li><a href="#acesso" data-toggle="tab">Acesso</a></li>
+        </ul>
+        <div class="tab-content">
+         <div class="tab-pane active" id="rep">
+          <table id="cadREP" class="table table-responsive">
+           <thead>
+            <tr>
+             <th>Data / Hora</th>
+             <th>Modelo</th>
+             <th>Nº de Série</th>
+             <th></th>
+            </tr> 
+           </thead>
+           <tbody>
+            <?php while ($R1510 = $Qry1510->fetch(PDO::FETCH_ASSOC)): 
+            echo '<tr>';
+            echo '<td>' . $R1510['DataCadastro'] . ' - ' . $R1510['HoraCadastro'] .'</td>';
+            echo '<td>' . $R1510['Modelo'] . '</td>';
+            echo '<td>' . $R1510['NumREP'] . '</td>';
+            echo '<td>';
+            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
+            echo "'1510Detalhe.php?ID=" . $R1510['NumREP'] . "');";
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
+            echo '<a class="btn btn-default btn-xs" href="javascript:abrir(';
+            echo "'1510Devolve.php?ID=" . $R1510['NumREP'] . "');";
+            echo '"><i class="fa fa-refresh"> DEVOLVER </i></a>&nbsp;';
+            echo "</td>";
+            echo "</tr>";
+            endwhile;
+            ?>
+           </tbody>
+          </table>  
+         </div>
+         <div class="tab-pane" id="373">
+          <table id="cad373" class="table table-responsive">
+           <thead>
+            <tr>
+             <th>Data / Hora</th>
+             <th>Modelo</th>
+             <th>Nº de Série</th>
+             <th></th>
+            </tr> 
+           </thead>
+           <tbody>
+            <?php while ($R373 = $Qry373->fetch(PDO::FETCH_ASSOC)): 
+            echo '<tr>';
+            echo '<td>' . $R373['DataCadastro'] . ' - ' . $R373['HoraCadastro'] .'</td>';
+            echo '<td>' . $R373['Modelo'] . '</td>';
+            echo '<td>' . $R373['NumSerie'] . '</td>';
+            echo '<td>';
+            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
+            echo "'373Detalhe.php?ID=" . $R373['NumSerie'] . "');";
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
+            echo '<a class="btn btn-default btn-xs" href="javascript:abrir(';
+            echo "'373Devolve.php?ID=" . $R373['NumSerie'] . "');";
+            echo '"><i class="fa fa-refresh"> DEVOLVER </i></a>&nbsp;';
+            echo "</td>";
+            echo "</tr>";
+              endwhile;
+            ?>
+           </tbody>
+          </table>         
+         </div>
+         <div class="tab-pane" id="acesso">
+          <table id="cadACESSO" class="table table-responsive">
+           <thead>
+            <tr>
+             <th>Data / Hora</th>
+             <th>Modelo</th>
+             <th>Nº de Série</th>
+             <th></th>
+            </tr> 
+           </thead>
+           <tbody>
+            <?php while ($RACC = $QryAcc->fetch(PDO::FETCH_ASSOC)): 
+            echo '<tr>';
+            echo '<td>' . $RACC['DataCadastro'] . ' - ' . $RACC['HoraCadastro'] .'</td>';
+            echo '<td>' . $RACC['Modelo'] . '</td>';
+            echo '<td>' . $RACC['NumSerie'] . '</td>';
+            echo '<td>';
+            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
+            echo "'AcessoDetalhe.php?ID=" . $RACC['NumSerie'] . "');";
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
+            echo '<a class="btn btn-default btn-xs" href="javascript:abrir(';
+            echo "'AcessoDevolve.php?ID=" . $RACC['NumSerie'] . "');";
+            echo '"><i class="fa fa-refresh"> DEVOLVER </i></a>&nbsp;';
+            echo "</td>";
+            echo "</tr>";
+              endwhile;
+            ?>
+           </tbody>
+          </table>     
+         </div>                       
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
 
 
   <?php  } else{ ?>
