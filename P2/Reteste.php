@@ -246,7 +246,6 @@ $QryPlus->execute();
      </div>
     </div>
     <?php } ?>
-  
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
