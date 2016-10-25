@@ -82,11 +82,11 @@ $QryPlus->execute();
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Controle de Reteste<small><?php echo $titulo; ?></small></h1>
+  <h1>Cadastro de Usuários<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
-  <?php if ($PermReteste === "9") { ?>
+  <?php if ($PermAdm === "9") { ?>
     <div class="col-md-12">
      <div class="box box-widget widget-user">
       <div class="info-box">
