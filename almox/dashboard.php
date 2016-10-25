@@ -131,7 +131,11 @@ require_once '../queryDashboard.php';
             echo '</td>';
             $LkL = $L['Laudo'];
             echo '<td>';
+             if ($RLaudo === "9") {
             echo '<a href="laudos/' . $LkL . ' " target="_blank" class="btn btn-default btn-xs"><i class="fa fa-download"></i> BAIXAR </a>';
+             }
+             else{
+             }
             echo '</td>';
             }
             elseif ($Status === "4") {
@@ -140,7 +144,11 @@ require_once '../queryDashboard.php';
             echo '</td>';
             $LkL = $L['Laudo'];
             echo '<td>';
+             if ($RLaudo === "9") {
             echo '<a href="laudos/' . $LkL . ' " target="_blank" class="btn btn-default btn-xs"><i class="fa fa-download"></i> BAIXAR </a>';
+             }
+             else{
+             }
             echo '</td>';
             }
             echo '<td><a class="btn btn-default btn-block btn-xs" href="';
