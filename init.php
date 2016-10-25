@@ -1,16 +1,18 @@
 <?php
 
 // constantes com as credenciais de acesso ao banco MySQL
-define('DB_HOST', 'localhost:8889');
-define('DB_USER', 'root');
-define('DB_PASS', 'root');
-define('DB_NAME', 'producao');
-
 $host = "localhost:8889";
 $user = "root";
-$pass = "root";
+$user = "root";
 $banco = "producao";
 $versao = "3.3.5";
+define('DB_HOST', $host);
+define('DB_USER', $user);
+define('DB_PASS', $user);
+define('DB_NAME', $banco);
+
+
+$IPImpressora = "192.168.60.38";
 
 //AQUI EU DECLARO A FUNÇÃO DE CHAMAR PORCENTAGEM
 // Y É X% DE Z
