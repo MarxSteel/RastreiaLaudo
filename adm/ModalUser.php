@@ -36,9 +36,23 @@
        <input name="cadAlmox" type="submit" class="btn btn-success btn-block btn-flat" id="cadAlmox" value="CADASTRAR USUÁRIO"  />
      </div>
     </form>
-
-
-
+    <?php 
+    if(@$_POST["cadAlmox"]){
+     $NomeCompleto = $_POST["NomeCompleto"];
+     $nick = $_POST["nick"];
+     $senha = $_POST["password"];
+     $CadLaudo = $_POST["cadLaudo"];
+     $respLaudo = $_POST["respLaudo"];
+     $passwd = md5($senha);
+     $ativo = "1";
+     $user_level = "2";
+      $CadAlmox = $PDO->query("INSERT INTO login (Nome, login, senha, PrivLaudo, CadLaudo) VALUES ('$NomeCompleto', '$nick', '$passwd', '$respLaudo', '$CadLaudo')");
+      if ($CadAlmox) {
+        echo '<script type="text/javascript">alert("Usuário Adicionado!");</script>';
+        echo '<script type="text/javascript">location.href="usuarios.php"</script>';
+      }
+    }
+    ?>
    </div>
    <div class="modal-footer"></div>
   </div>
