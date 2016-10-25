@@ -2,11 +2,7 @@
 require("../restritos.php"); 
 require_once '../init.php';
 $PDO = db_connect();
- $query = $PDO->prepare("SELECT * FROM login WHERE login='$login'");
- $query->execute();
-  $row = $query->fetch();
-  $Distrito = $row['MetaRealizada'];
-  $Nick = $row['Nome'];
+require_once '../QueryUser.php';
 
 
 $NumeroREP = $_GET['ID']; 
@@ -31,9 +27,6 @@ $DataMontagem = $DataCadastro . ' ' . $HoraCadastro;
 
 //CONCATENANDO DATA DE LIBERAÇÃO COM HORA DE LIBERAÇÃO
 $Liberado = $DataLiberado . ' ' . $HoraLiberado;
-$Imprime = "C[4[" . $NumeroREP . "[" . $DataLiberado . "[" . $Modelo;
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,7 +53,7 @@ $Imprime = "C[4[" . $NumeroREP . "[" . $DataLiberado . "[" . $Modelo;
       <ul class="nav navbar-nav">
        <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="hidden-xs">Olá, <?php echo $Nick; ?></span></a>
+        <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span></a>
        </li>
       </ul>
      </div>
@@ -72,31 +65,7 @@ $Imprime = "C[4[" . $NumeroREP . "[" . $DataLiberado . "[" . $Modelo;
     <section class="content">
      <div class="box box-default">
      <div class="box-header with-border">
-      <div class="col-xs-12">
-       <h2 class="page-header">
-        LIBERAÇÃO DE EQUIPAMENTO. Nr.: </strong><?php echo $NumeroREP; ?>
-        <small class="pull-right">
-          <form name="cadastrar_anuncio" id="name" method="post" action="" enctype="multipart/form-data">
-           <input name="enviar" type="submit" class="btn btn-default btn-block" id="enviar" value="Imprimir Etiqueta">
-         </form>
-      <?php 
-      if(@$_POST["enviar"]){
-      $port = 3000;
-      $socket = socket_create(AF_INET, SOCK_STREAM, 0) or die($M000);
-      socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 1, 'usec' => 0));
-      socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec' => 1, 'usec' => 0));
-       $result = socket_connect($socket, $IPImpressora, $port) or die($M001);
-        socket_write($socket, $Imprime, strlen($Imprime)) or die($M002);
-       $msg1 = socket_read($socket,8192);
-       socket_close($socket);
-          echo '<script type="text/javascript">alert("TICKET IMPRESSO COM SUCESSO");</script>';
-          }
-          else{
-          }
-      ?>
-        </small>
-       </h2>
-      </div>
+      <h2 class="box-title"><strong> LIBERAÇÃO DE EQUIPAMENTO. Nr.: </strong><?php echo $NumeroREP; ?></h2>
      </div>
      <div class="box-body">
       <div class="col-xs-6">
@@ -136,11 +105,33 @@ $Imprime = "C[4[" . $NumeroREP . "[" . $DataLiberado . "[" . $Modelo;
         <?php echo $Descricao; ?>
       </li>
       </div>
+      <form name="cadastrar_anuncio" id="name" method="post" action="" enctype="multipart/form-data">
+         <div class="col-xs-12"><br />
+           <input name="enviar" type="submit" class="btn bg-green btn-lg btn-block" id="enviar" value="LIBERAR EQUIPAMENTO"  />
+         </div>
+      </form>
+      <?php 
+       if(@$_POST["enviar"])
+       {
+        $DataLibera = date('Y/m/d');
+        $HoraLibera = date('H:i:s');
+        $DataUpdate = date('d/m/Y H:i:s');
+         $executa = $PDO->query("UPDATE cadastro_cartografico SET Status='3', UserLibera='$Nick', DataLibera='$DataLibera', HoraLibera='$HoraLibera' WHERE NumSerie='$NumeroREP' ");
+          if($executa)
+          {
+           echo '<script type="text/javascript">alert("Liberado Com Sucesso!");</script>';
+           echo '<script type="text/javascript">window.close();</script>';
+          }
+          else
+          {
+           echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL LIBERAR EQUIPAMENTO");</script>';
+           echo '<script type="text/javascript">window.close();</script>';
+          }
+       }
+      ?>
       </div>
       </div>
      </div>
-
-
     </section>
   </div>
  </div>
