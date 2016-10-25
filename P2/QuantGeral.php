@@ -1,27 +1,22 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$cReteste = "active";
+$cQGeral = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
 require_once '../queryDashboard.php';
-
-
-$Chama1510 = "SELECT * FROM cadastro_1510 WHERE Status='1' ORDER BY DataCadastro DESC";
+$Chama1510 = "SELECT * FROM cadastro_1510 ORDER BY id DESC";
 $Qry1510 = $PDO->prepare($Chama1510);
 $Qry1510->execute();
 
-$Chama373 = "SELECT * FROM cadastro_373 WHERE Status='1' ORDER BY DataCadastro DESC";
+$Chama373 = "SELECT * FROM cadastro_373 ORDER BY id DESC";
 $Qry373 = $PDO->prepare($Chama373);
 $Qry373->execute();
 
-$ChamaAcc = "SELECT * FROM cadastro_acesso WHERE Status='1' ORDER BY DataCadastro DESC";
+$ChamaAcc = "SELECT * FROM cadastro_acesso ORDER BY id DESC";
 $QryAcc = $PDO->prepare($ChamaAcc);
 $QryAcc->execute();
 
-$ChamaPlus = "SELECT * FROM cadastro_cartografico WHERE Status='1' ORDER BY DataCadastro ASC";
-$QryPlus = $PDO->prepare($ChamaPlus);
-$QryPlus->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,11 +77,11 @@ $QryPlus->execute();
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Controle de Reteste<small><?php echo $titulo; ?></small></h1>
+  <h1>Quantidade Geral<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
-  <?php if ($PermReteste === "9") { ?>
+  <?php if ($PermMontagem === "9") { ?>
     <div class="col-md-12">
      <div class="box box-widget widget-user">
       <div class="info-box">
@@ -95,8 +90,6 @@ $QryPlus->execute();
          <li class="active"><a href="#rep" data-toggle="tab">REP 1510/INMETRO</a></li>
          <li><a href="#373" data-toggle="tab">Ponto 373</a></li>
          <li><a href="#acesso" data-toggle="tab">Acesso</a></li>
-         <li><a href="#cartografico" data-toggle="tab">Cartográficos</a></li>
-         <li class="pull-right"><h3>Lista de Equipamentos Aguardando Reteste</h3></a></li>
         </ul>
         <div class="tab-content">
          <div class="tab-pane active" id="rep">
@@ -118,13 +111,7 @@ $QryPlus->execute();
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
             echo "'1510Detalhe.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'1510Libera.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'1510Reprova.php?ID=" . $R1510['NumREP'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
             endwhile;
@@ -151,13 +138,7 @@ $QryPlus->execute();
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
             echo "'373Detalhe.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'373Libera.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'373Reprova.php?ID=" . $R373['NumSerie'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
               endwhile;
@@ -184,56 +165,22 @@ $QryPlus->execute();
             echo '<td>';
             echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
             echo "'AcessoDetalhe.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'AcessoLibera.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
-            echo "'AcessoReprova.php?ID=" . $RACC['NumSerie'] . "');";
-            echo '"><i class="fa fa-remove"> Reprovar </i></a>&nbsp;';
+            echo '"><i class="fa fa-search"> VISUALIZAR </i></a>&nbsp;';
             echo "</td>";
             echo "</tr>";
               endwhile;
             ?>
            </tbody>
           </table>     
-         </div>
-         <div class="tab-pane" id="cartografico">
-          <table id="carto" class="table table-responsive tabel-bordered">
-           <thead>
-            <tr>
-             <th>Data / Hora</th>
-             <th>Modelo</th>
-             <th>Nº de Série</th>
-             <th></th>
-            </tr> 
-           </thead>
-           <tbody>
-            <?php while ($plus = $QryPlus->fetch(PDO::FETCH_ASSOC)): 
-            echo '<tr>';
-            echo '<td>' . $plus['DataCadastro'] . ' - ' . $plus['HoraCadastro'] .'</td>';
-            echo '<td>' . $plus['Modelo'] . '</td>';
-            echo '<td>' . $plus['NumSerie'] . '</td>';
-            echo '<td>';
-            echo '<a class="btn btn-info btn-xs" href="javascript:abrir(';
-            echo "'CartDetalhe.php?ID=" . $plus['NumSerie'] . "');";
-            echo '"><i class="fa fa-search"> Visualizar </i></a>&nbsp;';
-            echo '<a class="btn btn-success btn-xs" href="javascript:abrir(';
-            echo "'CartLibera.php?ID=" . $plus['NumSerie'] . "');";
-            echo '"><i class="fa fa-thumbs-up"> Liberar </i></a>&nbsp;';
-            echo "</td>";
-            echo "</tr>";
-              endwhile;
-            ?>
-           </tbody>
-          </table>
-         </div>                        
+         </div>                       
         </div>
        </div>
       </div>
      </div>
     </div>
-  <?php } else{ ?>
+
+
+  <?php  } else{ ?>
    <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-red">
@@ -246,6 +193,7 @@ $QryPlus->execute();
      </div>
     </div>
     <?php } ?>
+  
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->

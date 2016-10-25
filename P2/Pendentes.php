@@ -1,7 +1,7 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$cMont = "active";
+$cPend = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
 require_once '../queryDashboard.php';
@@ -217,14 +217,17 @@ $QryAcc->execute();
 <script src="../dist/js/demo.js"></script>
 <script>
   $(function () {
-    $('#laudos').DataTable({
+    $('#cadREP').DataTable({
       "paging": true,
-      "lengthChange": true,
+      "lengthChange": false,
       "searching": true,
       "ordering": false,
       "info": true,
-      "autoWidth": false
+      "autoWidth": true
     });
+    $("#cad373").DataTable();
+    $("#cadACESSO").DataTable();
+    $("#carto").DataTable();
   });
 </script>
 <script language="JavaScript">
