@@ -106,16 +106,16 @@ include_once '1510Valida.php';
         </i>
        </li>
       </div>
-      <form name="rep1510" id="name" method="post" action="" enctype="multipart/form-data">
-       <div class="col-xs-12">Digite aqui o motivo para reprovar
+      <form name="D1510" id="name" method="post" action="" enctype="multipart/form-data">
+       <div class="col-xs-12">Observações
         <textarea name="descricao" cols="45" rows="3" class="form-control" id="descricao"></textarea>
        </div>
        <div class="col-xs-12"><br />
-        <input name="rep1510" type="submit" class="btn btn-danger btn-lg btn-block" id="rep1510" value="DEVOLVER EQUIPAMENTO"  />
+        <input name="D1510" type="submit" class="btn btn-danger btn-lg btn-block" id="D1510" value="DEVOLVER EQUIPAMENTO"  />
        </div>
       </form>
        <?php 
-        if(@$_POST["rep1510"])
+        if(@$_POST["D1510"])
         {
          $DataHoje = date('Y-m-d H:i:s');
          $DataBrasil = date('d/m/Y H:i:s');
@@ -125,15 +125,15 @@ include_once '1510Valida.php';
          $Dt = "<br /><strong>Data: </strong>" . $DataBrasil;
          $Ob = "<br /><strong>Observação: </strong><br />" . $Obser;
          $Atual = $Descricao . $At . $Us . $Dt . $Ob;
-         $executa = $PDO->query("UPDATE cadastro_1510 SET Status='2', UserReteste='$NomeUserLogado', DataRetorna='$DataHoje', Observa='$Atual' WHERE NumREP='$NumeroREP' ");
+         $executa = $PDO->query("UPDATE cadastro_1510 SET Status='1', UserReteste='$NomeUserLogado', DataRetorna='$DataHoje', Observa='$Atual' WHERE NumREP='$NumeroREP' ");
          if($executa)
          {
-         echo '<script type="text/javascript">alert("Reprovado Com Sucesso!");</script>';
+         echo '<script type="text/javascript">alert("Devolvido Com Sucesso!");</script>';
          echo '<script type="text/javascript">window.close();</script>';
          }
          else
          {
-         echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL LIBERAR EQUIPAMENTO");</script>';
+         echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL DEVOLVER EQUIPAMENTO");</script>';
          echo '<script type="text/javascript">window.close();</script>';
          }
         }

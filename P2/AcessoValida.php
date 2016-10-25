@@ -23,6 +23,9 @@ $Disp = $QryREP['Display'];
   elseif ($Disp === "03") {
     $Display = "TFT COLORIDO";
   }
+  else{
+    $Display = "Não Possui";
+  }
 
 
 //CHAMANDO OS DADOS DE LEITORA DO EQUIPAMENTO
