@@ -100,5 +100,25 @@ $Liberado = $DataLiberado . ' ' . $HoraLiberado;
   else{
 	$Barras = "NÃO";
   }
+           $DataTk = date("d/m/Y");
+
+$ConcatLeitoras = $ChBio . "[" . $ChProx . "[" . $ChBarras . "[" . $ChSmart;
+        $TKF = substr($NumeroREP, 0, 5);  // Ticket Fabricante
+          if ($TKF === "00004") {
+            $Fab = "1";
+          }
+          elseif ($TKF === "00039") {
+            $Fab = "2";
+          }
+          elseif ($TKF === "00038") {
+            $Fab = "3";
+          }
+          else{
+          $Fab = "1";
+          }
+          $TKP = substr($NumeroREP, 5, 12);  // Ticket Prefixo
+          $Tkt = $Fab . $TKP;
+          $Print1510 = "C[1" . $Tkt . "[" . $ConcatLeitoras . "[" . $DataTk . "[" . $Modelo;       
+
 
   ?>
