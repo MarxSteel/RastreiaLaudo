@@ -118,6 +118,17 @@ include_once '1510Valida.php';
          $executa = $PDO->query("UPDATE cadastro_1510 SET Status='3', UserReteste='$NomeUserLogado', DataLiberaReteste='$DataHoje' WHERE NumREP='$NumeroREP' ");
          if($executa)
          {
+        $DataMontagem = $DataCadastro . ' - ' . $HoraCadastro;
+        $Liberado = $DataLiberado . ' - ' . $HoraLiberado;
+           
+            $port = 3000;
+            $socket = socket_create(AF_INET, SOCK_STREAM, 0) or die($M000);
+            socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 1, 'usec' => 0));
+            socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec' => 1, 'usec' => 0));
+            $result = socket_connect($socket, $IPImpressora, $port) or die($M001);
+              socket_write($socket, $Print1510, strlen($Print1510)) or die($M002);
+              $msg1 = socket_read($socket,8192);
+            socket_close($socket);
          echo '<script type="text/javascript">alert("Liberado Com Sucesso!");</script>';
          echo '<script type="text/javascript">window.close();</script>';
          }
